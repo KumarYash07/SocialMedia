@@ -1,8 +1,10 @@
-const Sidebar = () => {
+const Sidebar = ({ selectedTab, setSelectedTab }) => {
+
+    
   return (
     <div
       className="d-flex flex-column flex-shrink-0 p-3 text-bg-dark sidebar"
-      style={{ width: "280px" }}
+      style={{ width: "200px" }}
     >
       <a
         href="/"
@@ -22,8 +24,18 @@ const Sidebar = () => {
       <hr />
 
       <ul className="nav nav-pills flex-column mb-auto">
-        <li className="nav-item">
-          <a href="#" className="nav-link active" aria-current="page">
+        <li
+          className="nav-item"
+          onClick={() => {
+            // console.log("Home Clicked");
+            setSelectedTab("Home");
+          }}
+        >
+          <a
+            href="#"
+            className={`nav-link text-white ${selectedTab === "Home" && "active"}`}
+            aria-current="page"
+          >
             <svg
               className="bi pe-none me-2"
               width="16"
@@ -36,8 +48,15 @@ const Sidebar = () => {
           </a>
         </li>
 
-        <li>
-          <a href="#" className="nav-link text-white">
+        <li
+          onClick={() => {
+            setSelectedTab("Create Post");
+          }}
+        >
+          <a
+            href="#"
+            className={`nav-link text-white ${selectedTab === "Create Post" && "active"}`}
+          >
             <svg
               className="bi pe-none me-2"
               width="16"
@@ -49,8 +68,6 @@ const Sidebar = () => {
             Create Post
           </a>
         </li>
-
-  
       </ul>
 
       <hr />
@@ -69,7 +86,7 @@ const Sidebar = () => {
             height="32"
             className="rounded-circle me-2"
           />
-          <strong>mdo</strong>
+          <strong>yashkumar_007</strong>
         </a>
 
         <ul className="dropdown-menu dropdown-menu-dark text-small shadow">
