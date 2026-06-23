@@ -32,21 +32,22 @@ const PostList = () => {
   const [fetching, setFetching] = useState(false);
   useEffect(()=>{
     setFetching(true);
-    console.log("Fetch started");
     fetch("https://dummyjson.com/posts")
       .then((res) => res.json())
       .then(data => {
         addInitialPosts(data.posts);
         setFetching(false);
-        console.log("Fetch returned");
       });
-      console.log("Fetch ended");
+      
+      return () => {
+        console.log("Cleaning up useEffect.");
+      };
   }, []);
 
 
   return (
     <>
-      {/*fetching && */ <LoadingSpinner></LoadingSpinner>}
+      {fetching &&  <LoadingSpinner></LoadingSpinner>}
       {postList.length === 0 && (
         <WelcomeMessage></WelcomeMessage>
       )}
