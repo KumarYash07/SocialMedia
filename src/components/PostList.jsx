@@ -32,6 +32,10 @@ const PostList = () => {
   const [fetching, setFetching] = useState(false);
   useEffect(()=>{
     setFetching(true);
+
+    const controller = new AbortController();
+    const signal = controller.signal;
+
     fetch("https://dummyjson.com/posts")
       .then((res) => res.json())
       .then(data => {
@@ -41,6 +45,7 @@ const PostList = () => {
       
       return () => {
         console.log("Cleaning up useEffect.");
+        controller.abort();
       };
   }, []);
 
