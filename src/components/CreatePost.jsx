@@ -22,7 +22,26 @@ const CreatePost = () => {
     const views = Number(viewsElement.current.value);
     const tags = tagsElement.current.value.split(" ");
 
-    addPost(userId, postTitle, postBody, { likes, dislikes }, views, tags);
+    const reactions = {
+      likes,
+      dislikes,
+    };
+
+    fetch("https://dummyjson.com/posts/add", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        title: postTitle,
+        body: postBody,
+        reactions: reactions,
+        userId: userId,
+        views: views,
+        tags: tags,
+      }),
+    })
+      .then((res) => res.json())
+      .then(post => addPost(post));
+
 
     userIdElement.current.value = "";
     postTitleElement.current.value = "";
